@@ -8,7 +8,7 @@ ARG uid=1000
 ARG gid=1000
 ARG http_port=8080
 ARG agent_port=50000
-ARG JENKINS_HOME=/var/jenkins_home
+ARG JENKINS_HOME=/var/jenkins_homee
 
 ENV JENKINS_HOME $JENKINS_HOME
 ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
@@ -93,28 +93,4 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
    #bitbucket:1.1.5 \  
    git:3.0.5 \  
    github:1.26.0`
-
-
-# Add the main config file to the jenkins path  
-COPY /configs/jenkins_home_config.xml "$JENKINS_HOME"/config.xml
-
-
-# Name the jobs  
-ARG job_name_1="my_cicd_pipeline"  
-
-# Create the job workspaces  
-RUN mkdir -p "$JENKINS_HOME"/workspace/${job_name_1}  
-
-# Create the jobs folder recursively  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_1}  
-
-
-# Add the custom configs to the container  
-COPY /configs/${job_name_1}_config.xml "$JENKINS_HOME"/jobs/${job_name_1}/config.xml  
-
-# Create build file structure  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_1}/latest/  
-
-# Create build file structure  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_2}/latest/  
 
